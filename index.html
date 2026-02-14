@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Día de la Amistad! 🌈</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sunny-yellow: #ffd93d;
+            --coral-pink: #ff6b9d;
+            --sky-blue: #6bcbef;
+            --mint-green: #5dcea5;
+            --lavender: #c69ff5;
+            --peach: #ffb088;
+            --cream: #fffef9;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--lavender) 50%, var(--coral-pink) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Confetti background */
+        .confetti-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--sunny-yellow);
+            animation: confetti-fall 8s infinite ease-in;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 40px;
+            padding: 2.5rem 2rem;
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.2),
+                0 0 0 8px rgba(255, 255, 255, 0.5);
+            animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .emoji-group {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: wiggle 2s infinite ease-in-out;
+            display: inline-block;
+        }
+
+        @keyframes wiggle {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(-15deg);
+            }
+            75% {
+                transform: rotate(15deg);
+            }
+        }
+
+        h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, var(--coral-pink), var(--lavender), var(--sky-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .message-card {
+            background: linear-gradient(135deg, rgba(255, 217, 61, 0.15) 0%, rgba(107, 203, 239, 0.15) 100%);
+            border-radius: 25px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            border: 3px solid white;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message-card::before {
+            content: '✨';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 3rem;
+            opacity: 0.15;
+        }
+
+        .message-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #333;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .message-text strong {
+            color: var(--coral-pink);
+            font-weight: 700;
+        }
+
+        .qualities-section {
+            margin: 2rem 0;
+        }
+
+        .qualities-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.6rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--coral-pink);
+            font-weight: 600;
+        }
+
+        .quality-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 3px solid;
+            opacity: 0;
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            transition: transform 0.3s ease;
+        }
+
+        .quality-card:hover {
+            transform: translateX(10px);
+        }
+
+        .quality-card:nth-child(1) { 
+            border-color: var(--sunny-yellow); 
+            animation-delay: 0.1s;
+        }
+        .quality-card:nth-child(2) { 
+            border-color: var(--coral-pink); 
+            animation-delay: 0.2s;
+        }
+        .quality-card:nth-child(3) { 
+            border-color: var(--sky-blue); 
+            animation-delay: 0.3s;
+        }
+        .quality-card:nth-child(4) { 
+            border-color: var(--mint-green); 
+            animation-delay: 0.4s;
+        }
+        .quality-card:nth-child(5) { 
+            border-color: var(--lavender); 
+            animation-delay: 0.5s;
+        }
+        .quality-card:nth-child(6) { 
+            border-color: var(--peach); 
+            animation-delay: 0.6s;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotate(-5deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .quality-emoji {
+            font-size: 2.5rem;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .quality-text {
+            font-size: 1.05rem;
+            color: #333;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .fun-section {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .friendship-meter {
+            margin: 2rem 0;
+        }
+
+        .meter-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .meter-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .meter-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .meter-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #666;
+            min-width: 80px;
+        }
+
+        .meter-bar-bg {
+            flex: 1;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .meter-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            animation: fillBar 1.5s ease-out forwards;
+            position: relative;
+        }
+
+        .meter-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes fillBar {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .fun-button {
+            background: linear-gradient(135deg, var(--coral-pink), var(--lavender));
+            color: white;
+            border: none;
+            padding: 1.3rem 2.5rem;
+            font-size: 1.2rem;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fun-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .fun-button:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .fun-button:hover {
+            transform: scale(1.05) rotate(-2deg);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.5);
+        }
+
+        .fun-button:active {
+            transform: scale(0.95);
+        }
+
+        .fun-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .surprise-message {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease-out;
+            margin-top: 1.5rem;
+        }
+
+        .surprise-message.show {
+            max-height: 600px;
+        }
+
+        .memory-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin: 2rem 0;
+        }
+
+        .memory-box {
+            aspect-ratio: 1;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .memory-box:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .memory-box:nth-child(1) { background: linear-gradient(135deg, var(--sunny-yellow), var(--peach)); }
+        .memory-box:nth-child(2) { background: linear-gradient(135deg, var(--coral-pink), var(--lavender)); }
+        .memory-box:nth-child(3) { background: linear-gradient(135deg, var(--sky-blue), var(--mint-green)); }
+        .memory-box:nth-child(4) { background: linear-gradient(135deg, var(--mint-green), var(--sky-blue)); }
+        .memory-box:nth-child(5) { background: linear-gradient(135deg, var(--lavender), var(--coral-pink)); }
+        .memory-box:nth-child(6) { background: linear-gradient(135deg, var(--peach), var(--sunny-yellow)); }
+
+        .footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 3px dashed rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-text {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, var(--coral-pink), var(--lavender));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-emoji {
+            font-size: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        .floating-emoji {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            animation: floatUp 3s ease-out;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(1);
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-200px) scale(1.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="confetti-bg" id="confettiBg"></div>
+
+    <div class="container">
+        <div class="header">
+            <div class="emoji-group">🎉💕✨</div>
+            <h1>¡Feliz Día de la Amistad!</h1>
+            <p class="subtitle">Para una amiga increíble</p>
+        </div>
+
+        <div class="message-card">
+            <p class="message-text">
+                Hoy es el día perfecto para recordarte lo <strong>afortunado/a que soy de tenerte como amiga</strong>. 
+                Gracias por hacer mi vida más divertida, colorida y llena de risas. ¡Eres genial!
+            </p>
+        </div>
+
+        <div class="qualities-section">
+            <h2 class="qualities-title">Lo que hace que seas increíble</h2>
+            <div class="quality-card">
+                <div class="quality-emoji">🌟</div>
+                <div class="quality-text">Siempre sabes cómo alegrar mi día</div>
+            </div>
+            <div class="quality-card">
+                <div class="quality-emoji">😂</div>
+                <div class="quality-text">Tus chistes malos me hacen reír muchísimo</div>
+            </div>
+            <div class="quality-card">
+                <div class="quality-emoji">🤗</div>
+                <div class="quality-text">Das los mejores consejos (y abrazos)</div>
+            </div>
+            <div class="quality-card">
+                <div class="quality-emoji">🎨</div>
+                <div class="quality-text">Eres súper creativa y única</div>
+            </div>
+            <div class="quality-card">
+                <div class="quality-emoji">💪</div>
+                <div class="quality-text">Eres fuerte y valiente de verdad</div>
+            </div>
+            <div class="quality-card">
+                <div class="quality-emoji">🌈</div>
+                <div class="quality-text">Haces que todo sea más divertido</div>
+            </div>
+        </div>
+
+        <div class="friendship-meter">
+            <h3 class="meter-title">Medidor de Amistad 📊</h3>
+            <div class="meter-bars">
+                <div class="meter-row">
+                    <div class="meter-label">Diversión</div>
+                    <div class="meter-bar-bg">
+                        <div class="meter-bar-fill" style="background: linear-gradient(90deg, var(--sunny-yellow), var(--peach)); width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="meter-row">
+                    <div class="meter-label">Confianza</div>
+                    <div class="meter-bar-bg">
+                        <div class="meter-bar-fill" style="background: linear-gradient(90deg, var(--coral-pink), var(--lavender)); width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="meter-row">
+                    <div class="meter-label">Risas</div>
+                    <div class="meter-bar-bg">
+                        <div class="meter-bar-fill" style="background: linear-gradient(90deg, var(--sky-blue), var(--mint-green)); width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="meter-row">
+                    <div class="meter-label">Apoyo</div>
+                    <div class="meter-bar-bg">
+                        <div class="meter-bar-fill" style="background: linear-gradient(90deg, var(--mint-green), var(--sky-blue)); width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="memory-gallery">
+            <div class="memory-box" onclick="createFloatingEmoji('🎉', event)">🎉</div>
+            <div class="memory-box" onclick="createFloatingEmoji('🍕', event)">🍕</div>
+            <div class="memory-box" onclick="createFloatingEmoji('🎵', event)">🎵</div>
+            <div class="memory-box" onclick="createFloatingEmoji('☕', event)">☕</div>
+            <div class="memory-box" onclick="createFloatingEmoji('🎮', event)">🎮</div>
+            <div class="memory-box" onclick="createFloatingEmoji('🌺', event)">🌺</div>
+        </div>
+
+        <div class="fun-section">
+            <button class="fun-button" onclick="revealSurprise()">
+                <span>🎁 ¡Click aquí! 🎁</span>
+            </button>
+            <div class="surprise-message" id="surpriseMessage">
+                <div class="message-card">
+                    <p class="message-text">
+                        <strong>¡Sorpresa!</strong> 🎊<br><br>
+                        Gracias por ser esa persona con la que puedo ser yo mismo/a sin filtros. 
+                        Por todas las aventuras, las conversaciones hasta tarde, los planes espontáneos 
+                        y por estar ahí siempre. <strong>Eres una amiga en un millón</strong> y espero que 
+                        tengamos muchos más años de amistad increíble. ¡Te quiero un montón! 💛
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p class="footer-text">¡Feliz 14 de Febrero!</p>
+            <div class="footer-emoji">🎈🌟💝🎉</div>
+        </div>
+    </div>
+
+    <script>
+        // Create colorful confetti
+        function createConfetti() {
+            const confettiBg = document.getElementById('confettiBg');
+            const colors = ['#ffd93d', '#ff6b9d', '#6bcbef', '#5dcea5', '#c69ff5', '#ffb088'];
+            
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            confetti.style.animationDelay = Math.random() * 2 + 's';
+            
+            const shape = Math.random();
+            if (shape > 0.66) {
+                confetti.style.borderRadius = '50%';
+            } else if (shape > 0.33) {
+                confetti.style.transform = 'rotate(45deg)';
+            }
+            
+            confettiBg.appendChild(confetti);
+
+            setTimeout(() => {
+                confetti.remove();
+            }, 10000);
+        }
+
+        // Create initial confetti
+        for (let i = 0; i < 30; i++) {
+            setTimeout(createConfetti, i * 200);
+        }
+
+        // Keep creating confetti
+        setInterval(createConfetti, 500);
+
+        // Reveal surprise message
+        function revealSurprise() {
+            const message = document.getElementById('surpriseMessage');
+            message.classList.add('show');
+            
+            // Burst of confetti
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createConfetti, i * 50);
+            }
+        }
+
+        // Create floating emoji effect
+        function createFloatingEmoji(emoji, event) {
+            const floatingEmoji = document.createElement('div');
+            floatingEmoji.className = 'floating-emoji';
+            floatingEmoji.textContent = emoji;
+            floatingEmoji.style.left = event.clientX + 'px';
+            floatingEmoji.style.top = event.clientY + 'px';
+            
+            document.body.appendChild(floatingEmoji);
+            
+            setTimeout(() => {
+                floatingEmoji.remove();
+            }, 3000);
+        }
+
+        // Random wiggle animation for emojis
+        const emojiGroup = document.querySelector('.emoji-group');
+        setInterval(() => {
+            emojiGroup.style.animation = 'none';
+            setTimeout(() => {
+                emojiGroup.style.animation = 'wiggle 2s infinite ease-in-out';
+            }, 10);
+        }, 5000);
+    </script>
+</body>
+</html>
