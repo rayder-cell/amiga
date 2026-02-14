@@ -277,50 +277,135 @@
 
         .meter-row {
             display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .meter-header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 1rem;
         }
 
         .meter-label {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: #666;
-            min-width: 80px;
         }
 
-        .meter-bar-bg {
-            flex: 1;
-            height: 20px;
-            background: rgba(0, 0, 0, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
+        .meter-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: 'Fredoka', sans-serif;
         }
 
-        .meter-bar-fill {
-            height: 100%;
-            border-radius: 10px;
-            animation: fillBar 1.5s ease-out forwards;
-            position: relative;
-        }
-
-        .meter-bar-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+        .meter-slider {
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: shimmer 2s infinite;
+            height: 35px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+            outline: none;
+            cursor: pointer;
         }
 
-        @keyframes fillBar {
-            from {
-                width: 0;
-            }
-            to {
-                width: 100%;
-            }
+        .meter-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .meter-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .meter-slider::-moz-range-thumb {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .meter-slider::-moz-range-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .meter-slider.slider-1::-webkit-slider-thumb {
+            background: linear-gradient(135deg, var(--sunny-yellow), var(--peach));
+        }
+
+        .meter-slider.slider-2::-webkit-slider-thumb {
+            background: linear-gradient(135deg, var(--coral-pink), var(--lavender));
+        }
+
+        .meter-slider.slider-3::-webkit-slider-thumb {
+            background: linear-gradient(135deg, var(--sky-blue), var(--mint-green));
+        }
+
+        .meter-slider.slider-4::-webkit-slider-thumb {
+            background: linear-gradient(135deg, var(--mint-green), var(--sky-blue));
+        }
+
+        .meter-slider.slider-1::-moz-range-thumb {
+            background: linear-gradient(135deg, var(--sunny-yellow), var(--peach));
+        }
+
+        .meter-slider.slider-2::-moz-range-thumb {
+            background: linear-gradient(135deg, var(--coral-pink), var(--lavender));
+        }
+
+        .meter-slider.slider-3::-moz-range-thumb {
+            background: linear-gradient(135deg, var(--sky-blue), var(--mint-green));
+        }
+
+        .meter-slider.slider-4::-moz-range-thumb {
+            background: linear-gradient(135deg, var(--mint-green), var(--sky-blue));
+        }
+
+        .average-score {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, rgba(255, 217, 61, 0.2), rgba(255, 107, 157, 0.2));
+            border-radius: 20px;
+            text-align: center;
+            border: 3px solid white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .average-label {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .average-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Fredoka', sans-serif;
+            background: linear-gradient(135deg, var(--coral-pink), var(--lavender));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .rating-emoji {
+            font-size: 2rem;
+            margin-top: 0.3rem;
         }
 
         @keyframes shimmer {
@@ -513,32 +598,41 @@
         </div>
 
         <div class="friendship-meter">
-            <h3 class="meter-title">Medidor de Amistad 📊</h3>
+            <h3 class="meter-title">Califica Nuestra Amistad 📊</h3>
             <div class="meter-bars">
                 <div class="meter-row">
-                    <div class="meter-label">Diversión</div>
-                    <div class="meter-bar-bg">
-                        <div class="meter-bar-fill" style="background: linear-gradient(90deg, var(--sunny-yellow), var(--peach)); width: 100%;"></div>
+                    <div class="meter-header">
+                        <div class="meter-label">Diversión</div>
+                        <div class="meter-value" id="value1" style="color: var(--peach);">50%</div>
                     </div>
+                    <input type="range" min="0" max="100" value="50" class="meter-slider slider-1" id="slider1" oninput="updateMeter(1, this.value)">
                 </div>
                 <div class="meter-row">
-                    <div class="meter-label">Confianza</div>
-                    <div class="meter-bar-bg">
-                        <div class="meter-bar-fill" style="background: linear-gradient(90deg, var(--coral-pink), var(--lavender)); width: 100%;"></div>
+                    <div class="meter-header">
+                        <div class="meter-label">Confianza</div>
+                        <div class="meter-value" id="value2" style="color: var(--lavender);">50%</div>
                     </div>
+                    <input type="range" min="0" max="100" value="50" class="meter-slider slider-2" id="slider2" oninput="updateMeter(2, this.value)">
                 </div>
                 <div class="meter-row">
-                    <div class="meter-label">Risas</div>
-                    <div class="meter-bar-bg">
-                        <div class="meter-bar-fill" style="background: linear-gradient(90deg, var(--sky-blue), var(--mint-green)); width: 100%;"></div>
+                    <div class="meter-header">
+                        <div class="meter-label">Risas</div>
+                        <div class="meter-value" id="value3" style="color: var(--mint-green);">50%</div>
                     </div>
+                    <input type="range" min="0" max="100" value="50" class="meter-slider slider-3" id="slider3" oninput="updateMeter(3, this.value)">
                 </div>
                 <div class="meter-row">
-                    <div class="meter-label">Apoyo</div>
-                    <div class="meter-bar-bg">
-                        <div class="meter-bar-fill" style="background: linear-gradient(90deg, var(--mint-green), var(--sky-blue)); width: 100%;"></div>
+                    <div class="meter-header">
+                        <div class="meter-label">Apoyo</div>
+                        <div class="meter-value" id="value4" style="color: var(--sky-blue);">50%</div>
                     </div>
+                    <input type="range" min="0" max="100" value="50" class="meter-slider slider-4" id="slider4" oninput="updateMeter(4, this.value)">
                 </div>
+            </div>
+            <div class="average-score">
+                <div class="average-label">Puntuación Total de Amistad</div>
+                <div class="average-value" id="averageScore">50%</div>
+                <div class="rating-emoji" id="ratingEmoji">😊</div>
             </div>
         </div>
 
@@ -643,6 +737,82 @@
                 emojiGroup.style.animation = 'wiggle 2s infinite ease-in-out';
             }, 10);
         }, 5000);
+
+        // Update meter values and calculate average
+        function updateMeter(id, value) {
+            // Update individual value display
+            document.getElementById('value' + id).textContent = value + '%';
+            
+            // Calculate average
+            const slider1 = parseInt(document.getElementById('slider1').value);
+            const slider2 = parseInt(document.getElementById('slider2').value);
+            const slider3 = parseInt(document.getElementById('slider3').value);
+            const slider4 = parseInt(document.getElementById('slider4').value);
+            
+            const average = Math.round((slider1 + slider2 + slider3 + slider4) / 4);
+            document.getElementById('averageScore').textContent = average + '%';
+            
+            // Update emoji based on average score
+            const emojiDisplay = document.getElementById('ratingEmoji');
+            let emoji = '';
+            
+            if (average >= 90) {
+                emoji = '🤩✨';
+            } else if (average >= 80) {
+                emoji = '😍💖';
+            } else if (average >= 70) {
+                emoji = '😊💕';
+            } else if (average >= 60) {
+                emoji = '🙂💛';
+            } else if (average >= 50) {
+                emoji = '😌💚';
+            } else if (average >= 40) {
+                emoji = '😐💙';
+            } else if (average >= 30) {
+                emoji = '😕';
+            } else {
+                emoji = '😢';
+            }
+            
+            emojiDisplay.textContent = emoji;
+            
+            // Add celebration effect if all sliders are at 100
+            if (slider1 === 100 && slider2 === 100 && slider3 === 100 && slider4 === 100) {
+                celebrate();
+            }
+        }
+
+        // Celebration effect
+        function celebrate() {
+            for (let i = 0; i < 30; i++) {
+                setTimeout(createConfetti, i * 30);
+            }
+        }
+
+        // Update slider background gradients
+        function updateSliderBackground() {
+            const sliders = document.querySelectorAll('.meter-slider');
+            sliders.forEach((slider, index) => {
+                const value = slider.value;
+                const gradients = [
+                    'linear-gradient(90deg, var(--sunny-yellow), var(--peach))',
+                    'linear-gradient(90deg, var(--coral-pink), var(--lavender))',
+                    'linear-gradient(90deg, var(--sky-blue), var(--mint-green))',
+                    'linear-gradient(90deg, var(--mint-green), var(--sky-blue))'
+                ];
+                
+                slider.style.background = `linear-gradient(to right, ${gradients[index].replace('linear-gradient(90deg, ', '').replace(')', '')} ${value}%, rgba(0, 0, 0, 0.05) ${value}%)`;
+            });
+        }
+
+        // Initialize slider backgrounds
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSliderBackground();
+            
+            document.querySelectorAll('.meter-slider').forEach(slider => {
+                slider.addEventListener('input', updateSliderBackground);
+            });
+        });
     </script>
 </body>
 </html>
